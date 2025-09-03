@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro - Programa de Afiliados Capterplus</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #FFFFFF;
+      color: #073B56;
+    }
+
+    /* Cabeçalho */
+    header {
+      background-color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header .logo {
+      font-weight: bold;
+      font-size: 18px;
+      color: #073B56;
+      display: flex;
+      align-items: center;
+    }
+    header .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    header a {
+      text-decoration: none;
+      color: #073B56;
+      font-weight: bold;
+      margin-left: 20px;
+    }
+    header a:hover {
+      text-decoration: underline;
+    }
+
+    /* Container do formulário */
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #073B56;
+    }
+
+    /* Campos */
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Botão */
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #B7CB3D;
+      color: #073B56;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-submit:hover {
+      background-color: #9eb230;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #073B56;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cabeçalho -->
+<header>
+  <div class="logo">
+    <img src="capterplus-logo.svg" alt="Capterplus Logo">
+    <span>Programa de Afiliados Capterplus</span>
+  </div>
+  <div>
+    <a href="index.html">Início</a>
+  </div>
+</header>
+
+<!-- Formulário -->
+<div class="form-container">
+  <h2>Formulário de Cadastro</h2>
+  <form action="https://formsubmit.co/comercial@capterplus.com.br" method="POST">
+    <div class="form-group">
+      <label for="nome">Nome completo *</label>
+      <input type="text" id="nome" name="nome" required>
+    </div>
+
+    <div class="form-group">
+      <label for="cpf">CPF *</label>
+      <input type="text" id="cpf" name="cpf" required>
+    </div>
+
+    <div class="form-group">
+      <label for="telefone">Telefone *</label>
+      <input type="text" id="telefone" name="telefone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="whatsapp">WhatsApp *</label>
+      <input type="text" id="whatsapp" name="whatsapp" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail *</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="ramo">Ramo de atividade *</label>
+      <select id="ramo" name="ramo" required>
+        <option value="">Selecione</option>
+        <option value="influencer">Influencer</option>
+        <option value="criador">Criador de conteúdo</option>
+        <option value="youtuber">YouTuber</option>
+        <option value="outros">Outros</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="extra">Conte um pouco mais sobre você (opcional)</label>
+      <textarea id="extra" name="extra" placeholder="Se quiser, fale mais sobre sua experiência, público ou objetivos."></textarea>
+    </div>
+
+    <!-- Campos ocultos Formsubmit -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="Novo cadastro no Programa de Afiliados">
+    <!-- Para redirecionamento, podemos configurar depois -->
+    <!-- <input type="hidden" name="_next" value="obrigado.html"> -->
+
+    <button type="submit" class="btn-submit">Enviar Cadastro</button>
+  </form>
+</div>
+
+<!-- Rodapé -->
+<footer>
+  <p>&copy; 2025 Capterplus - Programa de Afiliados. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

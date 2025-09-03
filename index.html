@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Programa de Afiliados Capterplus</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #FFFFFF;
+  }
+
+  /* Cabeçalho */
+  header {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  header .logo {
+    font-weight: bold;
+    font-size: 18px;
+    color: #073B56;
+    display: flex;
+    align-items: center;
+  }
+  header .logo img {
+    height: 40px;
+    margin-right: 10px;
+  }
+  header .cadastro-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #B7CB3D;
+    color: #073B56;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  header .cadastro-btn:hover {
+    background-color: #9eb230;
+  }
+
+  /* Banner inicial */
+  .banner-inicial {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .banner-inicial img {
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    border-radius: 10px;
+  }
+  .banner-inicial .mobile { display: none; }
+  @media (max-width: 768px) {
+    .banner-inicial .desktop { display: none; }
+    .banner-inicial .mobile { display: block; }
+  }
+
+  /* Texto centralizado */
+  .info {
+    background-color: #FFFFFF;
+    text-align: center;
+    padding: 50px 20px;
+  }
+  .info h2 {
+    font-size: 28px;
+    color: #073B56;
+    margin-bottom: 20px;
+  }
+  .info p {
+    font-size: 18px;
+    color: #073B56;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Como funciona */
+  .como-funciona {
+    background-color: #FFFFFF;
+    text-align: center;
+    padding: 50px 20px;
+  }
+  .como-funciona h2 {
+    font-size: 28px;
+    color: #073B56;
+    margin-bottom: 40px;
+  }
+  .passos {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .passo {
+    flex: 1 1 250px;
+    max-width: 300px;
+    text-align: center;
+  }
+  .passo img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+  }
+  .passo h3 {
+    font-size: 20px;
+    color: #073B56;
+    margin-bottom: 15px;
+  }
+  .passo p {
+    font-size: 16px;
+    color: #073B56;
+    line-height: 1.6;
+  }
+  .icone-mobile { display: none; }
+  @media (max-width: 768px) {
+    .passo img { width: 60px; height: 60px; }
+    .passo h3 { font-size: 18px; }
+    .passo p { font-size: 15px; }
+    .icone-desktop { display: none; }
+    .icone-mobile { display: block; }
+  }
+
+  /* Carrossel */
+  .carrossel {
+    position: relative;
+    max-width: 1200px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  .slides {
+    display: flex;
+    transition: transform 8s ease-in-out;
+  }
+  .slide {
+    min-width: 100%;
+    display: none;
+    text-align: center;
+  }
+  .slide img {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+  @media (min-width: 769px) {
+    .slide .desktop { display: block; }
+  }
+  @media (max-width: 768px) {
+    .slide .mobile { display: block; }
+  }
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 24px;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
+  /* Indicadores */
+  .indicators {
+    text-align: center;
+    margin-top: 15px;
+  }
+  .indicator {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .indicator.active {
+    background-color: #073B56;
+  }
+
+  /* FAQ */
+  .faq {
+    background-color: #FFFFFF;
+    padding: 50px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .faq h2 {
+    font-size: 28px;
+    color: #073B56;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .faq-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+  }
+  .faq-question {
+    font-size: 18px;
+    color: #073B56;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+  }
+  .faq-question::after {
+    content: "+";
+    position: absolute;
+    right: 20px;
+    font-size: 22px;
+    color: #073B56;
+  }
+  .faq-question.active::after {
+    content: "-";
+  }
+  .faq-answer {
+    display: none;
+    padding: 0 15px 15px;
+    font-size: 16px;
+    color: #073B56;
+    line-height: 1.6;
+  }
+  .faq-answer ul {
+    list-style: disc;
+    margin-left: 20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Cabeçalho -->
+<header>
+  <div class="logo">
+    <img src="capterplus-logo.svg" alt="Capterplus Logo">
+    <span>Programa de Afiliados Capterplus</span>
+  </div>
+  <div>
+   <a href="cadastro.html" class="cadastro-btn">Cadastre-se</a>
+  </div>
+</header>
+
+<!-- Banner inicial -->
+<section class="banner-inicial">
+  <img src="INDIN.svg" class="desktop" alt="Banner Inicial Desktop">
+  <img src="INDIN (800 x 400 px).svg" class="mobile" alt="Banner Inicial Mobile">
+</section>
+
+<!-- Texto explicativo -->
+<section class="info">
+  <h2>Programa de Afiliados Capterplus</h2>
+  <p>
+    Seja parceiro do Capterplus, o único capturador de odores que age em nível molecular! 
+    Com diversas versões para atender a todas as necessidades, Capterplus é uma solução inovadora 
+    que transforma a experiência de quem busca capturar os odores de forma eficiente. Agora, 
+    você pode ganhar dinheiro enquanto ajuda seu público a conhecer essa tecnologia revolucionária.
+  </p>
+</section>
+
+<!-- Como funciona -->
+<section class="como-funciona">
+  <h2>Como funciona</h2>
+  <div class="passos">
+    <div class="passo">
+      <img src="icone1-desktop.svg" alt="Inscreva-se" class="icone-desktop">
+      <img src="icone1-mobile.svg" alt="Inscreva-se" class="icone-mobile">
+      <h3>1. Inscreva-se</h3>
+      <p>
+        Junte-se ao programa de afiliados da Capterplus e faça parte de uma rede de influenciadores, 
+        criadores de conteúdo e blogueiros que já estão lucrando com a divulgação dessa tecnologia única.
+      </p>
+    </div>
+    <div class="passo">
+      <img src="icone2-desktop.svg" alt="Compartilhe e recomende" class="icone-desktop">
+      <img src="icone2-mobile.svg" alt="Compartilhe e recomende" class="icone-mobile">
+      <h3>2. Compartilhe e recomende</h3>
+      <p>
+        Divulgue o Capterplus para seus seguidores usando cupons personalizados. 
+        Seus seguidores ganham descontos exclusivos através do seu cupom, tornando sua recomendação ainda mais atrativa.
+      </p>
+    </div>
+    <div class="passo">
+      <img src="icone3-desktop.svg" alt="Ganhe comissões" class="icone-desktop">
+      <img src="icone3-mobile.svg" alt="Ganhe comissões" class="icone-mobile">
+      <h3>3. Ganhe comissões</h3>
+      <p>
+        Você recebe até 20% de comissão sobre cada venda realizada com seu cupom. Quanto mais você divulgar, 
+        maior será seu faturamento. É simples, transparente e altamente lucrativo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Carrossel -->
+<section class="carrossel">
+  <div class="slides">
+    <div class="slide">
+      <img src="banner1-desktop.svg" class="desktop" alt="Banner 1 Desktop">
+      <img src="banner1-mobile.svg" class="mobile" alt="Banner 1 Mobile">
+    </div>
+    <div class="slide">
+      <img src="banner2-desktop.svg" class="desktop" alt="Banner 2 Desktop">
+      <img src="banner2-mobile.svg" class="mobile" alt="Banner 2 Mobile">
+    </div>
+  </div>
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+  <div class="indicators"></div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>Perguntas Frequentes – Programa de Afiliados Capterplus</h2>
+
+  <div class="faq-item">
+    <div class="faq-question">Como funciona o Programa de Afiliados Capterplus?</div>
+    <div class="faq-answer">Você divulga os produtos Capterplus para seu público usando um cupom personalizado, que estará disponível para uso no nosso site oficial. Cada venda realizada por meio do seu cupom gera comissão para você, permitindo que você monetize seu alcance ou rede de contatos.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Como posso me qualificar para este programa?</div>
+    <div class="faq-answer">O programa é ideal para influencers, criadores de conteúdo, YouTubers ou pessoas com redes de contatos que queiram gerar uma renda extra. Basta se cadastrar no botão Cadastre-se. Após a aprovação do cadastro, você receberá seu cupom exclusivo e acesso ao Portal de Afiliados.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Como ganho com este programa?</div>
+    <div class="faq-answer">
+      As comissões são calculadas com base no valor total das vendas realizadas com o seu cupom:
+      <ul>
+        <li>R$ 1,00 – R$ 1.000,00: <strong>10% de comissão</strong></li>
+        <li>R$ 1.001,00 – R$ 5.000,00: <strong>15% de comissão</strong></li>
+        <li>Acima de R$ 5.000,00: <strong>20% de comissão</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Como acompanho minhas vendas e comissões?</div>
+    <div class="faq-answer">
+      No Portal de Afiliados, você poderá:
+      <ul>
+        <li>Acompanhar suas vendas e comissões em tempo real</li>
+        <li>Acessar códigos de rastreio e status dos pedidos (em rota ou entregue)</li>
+        <li>Gerenciar e compartilhar seu cupom personalizado</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Como e quando recebo minha comissão?</div>
+    <div class="faq-answer">O pagamento das comissões será feito até o 3º dia útil do mês seguinte, considerando todos os pedidos entregues no mês anterior. O recebimento é realizado via Pix, diretamente na conta cadastrada.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Por que divulgar Capterplus?</div>
+    <div class="faq-answer">Capterplus é o único capturador de odores que atua em nível molecular, com diversas versões para atender todas as necessidades. É um produto exclusivo, fácil de divulgar e altamente eficaz, perfeito para quem quer gerar renda extra com segurança e credibilidade.</div>
+  </div>
+</section>
+
+<!-- JavaScript -->
+<script>
+/* ===== Carrossel ===== */
+let index = 0;
+const slides = document.querySelectorAll('.slide');
+const indicatorsContainer = document.querySelector('.indicators');
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('span');
+  dot.classList.add('indicator');
+  if (i === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => {
+    index = i;
+    showSlide(index);
+  });
+  indicatorsContainer.appendChild(dot);
+});
+const indicators = document.querySelectorAll('.indicator');
+
+function showSlide(i) {
+  slides.forEach(slide => slide.style.display = 'none');
+  slides[i].style.display = 'block';
+  indicators.forEach(dot => dot.classList.remove('active'));
+  indicators[i].classList.add('active');
+}
+showSlide(index);
+
+function nextSlide() {
+  index = (index + 1) % slides.length;
+  showSlide(index);
+}
+function prevSlide() {
+  index = (index - 1 + slides.length) % slides.length;
+  showSlide(index);
+}
+document.querySelector('.next').addEventListener('click', nextSlide);
+document.querySelector('.prev').addEventListener('click', prevSlide);
+setInterval(nextSlide, 5000);
+
+/* ===== FAQ acordeão ===== */
+const questions = document.querySelectorAll('.faq-question');
+questions.forEach(q => {
+  q.addEventListener('click', () => {
+    q.classList.toggle('active');
+    const answer = q.nextElementSibling;
+    if (answer.style.display === "block") {
+      answer.style.display = "none";
+    } else {
+      answer.style.display = "block";
+    }
+  });
+});
+</script>
+
+</body>
+</html>
+<!-- CTA Final -->
+<section class="cta-final">
+  <h2>Pronto para começar?</h2>
+  <p>Junte-se ao Programa de Afiliados Capterplus e transforme sua influência em ganhos reais.</p>
+  <a href="cadastro.html" class="cadastro-btn">Cadastre-se</a>
+</section>
+
+<!-- Rodapé -->
+<footer>
+  <div class="footer-content">
+    <img src="capterplus-logo.svg" alt="Logo Capterplus">
+    <p>&copy; 2025 Capterplus - Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  /* CTA Final */
+  .cta-final {
+    background-color: #073B56;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .cta-final h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+  .cta-final p {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  .cta-final .cadastro-btn {
+    font-size: 18px;
+    padding: 12px 30px;
+    background-color: #B7CB3D;
+    color: #073B56;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .cta-final .cadastro-btn:hover {
+    background-color: #9eb230;
+  }
+
+  /* Rodapé */
+  footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+  }
+  footer img {
+    height: 35px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  footer p {
+    color: #073B56;
+    font-size: 14px;
+    margin: 0;
+  }
+</style>
