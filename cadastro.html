@@ -96,6 +96,15 @@
       background-color: #9eb230;
     }
 
+    /* Mensagem de sucesso */
+    #mensagemSucesso {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+    }
+
     /* Rodapé */
     footer {
       background-color: #073B56;
@@ -122,7 +131,7 @@
 <!-- Formulário -->
 <div class="form-container">
   <h2>Formulário de Cadastro</h2>
-  <form action="https://formsubmit.co/comercial@capterplus.com.br" method="POST">
+  <form id="cadastroForm">
     <div class="form-group">
       <label for="nome">Nome completo *</label>
       <input type="text" id="nome" name="nome" required>
@@ -164,20 +173,48 @@
       <textarea id="extra" name="extra" placeholder="Se quiser, fale mais sobre sua experiência, público ou objetivos."></textarea>
     </div>
 
-    <!-- Campos ocultos Formsubmit -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_subject" value="Novo cadastro no Programa de Afiliados">
-    <!-- Para redirecionamento, podemos configurar depois -->
-    <!-- <input type="hidden" name="_next" value="obrigado.html"> -->
-
     <button type="submit" class="btn-submit">Enviar Cadastro</button>
   </form>
+
+  <p id="mensagemSucesso">✅ Formulário enviado com sucesso! Entraremos em contato em breve.</p>
 </div>
 
 <!-- Rodapé -->
 <footer>
   <p>&copy; 2025 Capterplus - Programa de Afiliados. Todos os direitos reservados.</p>
 </footer>
+
+<!-- JavaScript -->
+<script>
+const form = document.getElementById('cadastroForm');
+const mensagem = document.getElementById('mensagemSucesso');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // evita envio normal
+
+  const formData = new FormData(form);
+
+  fetch("https://formsubmit.co/ajax/comercial@capterplus.com.br", {
+    method: "POST",
+    body: formData,
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => {
+    if(response.ok) {
+      mensagem.style.display = 'block';
+      form.reset();
+    } else {
+      alert("Ocorreu um erro ao enviar o formulário.");
+    }
+  })
+  .catch(error => {
+    alert("Ocorreu um erro ao enviar o formulário.");
+    console.error(error);
+  });
+});
+</script>
 
 </body>
 </html>
